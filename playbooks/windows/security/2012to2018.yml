@@ -1,0 +1,6 @@
+---
+- name: Windows 2012 to 2018
+  hosts: win2k12
+  tasks:
+     - name: Upgrade 2012 to 2018
+       meta: noop

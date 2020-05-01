@@ -1,0 +1,10 @@
+---
+- hosts: mac:!bsd:!linux:!windows:!exceptions
+  gather_facts: true
+  ignore_errors: yes
+  roles:
+    - guruevi.mac_package
+  tasks:
+    - import_tasks: playbooks/query_ad.yml
+- import_playbook: playbooks/crashplan.yml
+- import_playbook: playbooks/mac/security.yml

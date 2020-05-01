@@ -1,0 +1,38 @@
+#!/bin/bash
+if [ "$1" == "--list" ]; then
+echo '{"_meta": {"hostvars": {}}, "cylance": { "children": ["windows_cylance", "mac_cylance", "linux_cylance", "unknown_cylance"]}, "windows_cylance": { "children": ["windowsxp_cylance","windows7_cylance","windows10_cylance","windows8_cylance","windows2012_cylance"]}, "windows7_cylance": { "hosts": ['
+hosts=`cat ~/Box/Boomi/Cylance/* | tail -n +2 | grep "Microsoft Windows 7" |  awk -F "\",\"" '{print toupper($3)}' | awk -F "."  '{print "\"" $1 "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']},"windows8_cylance": { "hosts": ['
+hosts=`cat ~/Box/Boomi/Cylance/* | tail -n +2 | grep -i "Microsoft Windows 8" |  awk -F "\",\"" '{print toupper($3)}' | awk -F "."  '{print "\"" $1 "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']},"windows2012_cylance": { "hosts": ['
+hosts=`cat ~/Box/Boomi/Cylance/* | tail -n +2 | grep -i "Microsoft Windows Server 2012" |  awk -F "\",\"" '{print toupper($3)}' | awk -F "."  '{print "\"" $1 "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']},"windows10_cylance": { "hosts": ['
+hosts=`cat ~/Box/Boomi/Cylance/* | tail -n +2 | grep -i "Microsoft Windows 10" |  awk -F "\",\"" '{print toupper($3)}' | awk -F "."  '{print "\"" $1 "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']},"linux_cylance": { "hosts": ['
+hosts=`cat ~/Box/Boomi/Cylance/* | tail -n +2 | grep -i "linux" |  awk -F "\",\"" '{print toupper($3)}' | awk -F "."  '{print "\"" $1 "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']},"mac_cylance": { "hosts": [' 
+hosts=`cat ~/Box/Boomi/Cylance/* | tail -n +2 | grep -i "mac" |  awk -F "\",\"" '{print toupper($3)}' | awk -F "."  '{print "\"" $1 "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']},"unknown_cylance": { "hosts": [' 
+hosts=`cat ~/Box/Boomi/Cylance/* | tail -n +2 | grep -vi "linux" |  grep -vi "mac" | grep -vi "Microsoft Windows" |  awk -F "\",\"" '{print toupper($2)}' | awk -F "."  '{print "\"" $1 "\","}'` 
+echo $hosts | sed s'/.$//'
+
+
+echo ']}}'
+
+elif [ "$1" == "--host" ]; then
+  echo '{"_meta": {"hostvars": {}}}'
+else
+  echo "{ }"
+fi

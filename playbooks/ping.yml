@@ -1,0 +1,70 @@
+---
+- hosts: mac:!windows:!exceptions
+  gather_facts: true
+  tasks:
+    - ping:
+  ignore_errors: yes
+
+- hosts: linux:!exceptions
+  gather_facts: true
+  tasks:
+    - ping:
+  ignore_errors: yes
+
+- hosts: unknown:!mac:!windows:!linux:!exceptions
+  gather_facts: true
+  tasks:
+    - ping:
+  ignore_errors: yes
+
+- hosts: windows:!exceptions 
+  gather_facts: true
+  tasks:
+    - win_ping:
+  ignore_errors: yes
+
+- hosts: windows_domain:!exceptions
+  gather_facts: true
+  tasks:
+    - win_ping:
+  ignore_errors: yes
+
+- hosts: mac_domain:!exceptions
+  gather_facts: true
+  tasks:
+    - ping:
+  ignore_errors: yes
+
+- hosts: unknown_domain:!windows:!mac:!exceptions
+  gather_facts: true
+  tasks:
+    - win_ping:
+    - ping:
+  ignore_errors: yes
+
+- hosts: windows_cylance:!exceptions
+  gather_facts: true
+  tasks:
+    - win_ping:
+  ignore_errors: yes
+
+- hosts: mac_cylance:!exceptions
+  gather_facts: true
+  tasks:
+    - win_ping:
+  ignore_errors: yes
+
+- hosts: unknown_cylance:!mac:!windows:!exceptions
+  gather_facts: true
+  tasks:
+    - win_ping:
+    - ping:
+  ignore_errors: yes
+
+- hosts: all:!cylance:!windows_domain:!mac_jss:!exceptions
+  gather_facts: true
+  name: Hosts without Cylance
+  tasks:
+    - win_ping:
+    - ping:
+  ignore_errors: yes

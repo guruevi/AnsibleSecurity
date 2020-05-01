@@ -1,0 +1,12 @@
+---
+- import_playbook: security/barmitzvah.yml
+- import_playbook: security/credssp.yml
+- import_playbook: security/cylance.yml
+- import_playbook: security/logjam.yml
+- import_playbook: security/poodle.yml
+- import_playbook: security/smb1.yml
+- import_playbook: security/smbsigning.yml
+- import_playbook: security/sweet32.yml
+- import_playbook: security/win7tls.yml
+- import_playbook: security/win10tls.yml
+- import_playbook: security/speculative.yml

@@ -1,0 +1,19 @@
+---
+- name: Machines that do not have Cylance
+  hosts: mac:!cylance
+  ignore_errors: yes
+  tasks:
+    - set_fact:
+        antivirus: False
+        cacheable: yes
+
+    - name: Install Cylance for Mac
+      mac_package:
+
+
+- name: Machines that do have Cylance
+  hosts: mac:&cylance
+  tasks:
+    - set_fact:
+        antivirus: True
+        cacheable: yes

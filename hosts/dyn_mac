@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ "$1" == "--list" ]; then
+echo '{"_meta": {"hostvars": {}},"mac_jss": { "hosts": ['
+#JSSXML=`curl --netrc-file ~/.ansible/jss_creds  --request GET https://jss.urmc.rochester.edu:8443/JSSResource/computerreports/id/81 -H "Accept: application/xml" 2>/dev/null`
+JSSXML=`cat ~/Box/Boomi/JSS/*`
+echo $JSSXML | xmllint --xpath '//computer_reports/Computer/Computer_Name' - | sed -e "s/<Computer_Name\/>//g" -e "s/<Computer_Name>/\"/g" -e "s/<\/Computer_Name>/\"\,/g" -e "s/&#x2019;//g" -e "s/'//g" -e "s/(//g" -e "s/)//g" -e "s/ /-/g" -e 's/.$//' | tr '/a-z/' '/A-Z/'
+echo ']}}'
+elif [ "$1" == "--host" ]; then
+  echo '{"_meta": {"hostvars": {}}}'
+else
+  echo "{ }"
+fi

@@ -1,0 +1,35 @@
+---
+- hosts: linux:!mac:!bsd:!windows:!exceptions
+  gather_facts: true
+  become: true
+  roles:                                                                                                                                                                                                                  
+    - guruevi.win_sessions
+  tasks:
+    - import_tasks: playbooks/query_ad.yml 
+    - name: Install python-apt                                                                                                                                                                                            
+      when: ansible_pkg_mgr == "apt"                                                                                                                                                                                      
+      apt:                                                                                                                                                                                                                
+        name:                                                                                                                                                                                                             
+          - python3-apt                                                                                                                                                                                                   
+        state: latest                                                                                                                                                                                                     
+                                                                                                                                                                                                                          
+    - name: Install python-dnf                                                                                                                                                                                            
+      when: ansible_pkg_mgr == "dnf"                                                                                                                                                                                      
+      dnf:                                                                                                                                                                                                                
+        name:                                                                                                                                                                                                             
+          - python3-dnf                                                                                                                                                                                                  
+        state: latest                                                                                                                                                                                                   
+    
+    - name: Install sysstat
+      package:
+        name:
+          - sysstat
+          - net-tools
+        state: latest
+ 
+    - package_facts:    
+    - listen_ports_facts:
+    - service_facts:
+
+- import_playbook: playbooks/crashplan.yml
+- import_playbook: playbooks/linux/security.yml

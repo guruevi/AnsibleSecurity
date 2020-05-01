@@ -1,0 +1,14 @@
+---
+- name: Mark machines with Crashplan
+  hosts: all:crashplan
+  tasks:
+    - set_fact:
+        crashplan: True
+        cacheable: Yes
+
+- name: Mark machines without Crashplan
+  hosts: all:!crashplan
+  tasks:                                                                                                                                                                                         
+    - set_fact:                                                                                                                                                                                  
+        crashplan: False
+        cacheable: Yes     

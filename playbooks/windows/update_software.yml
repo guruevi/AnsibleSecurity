@@ -1,0 +1,247 @@
+---
+- name: Update Windows Software 
+  hosts: windows_vulnerable:!exceptions
+  gather_facts: false
+
+  tasks:
+    - name: Update Adobe Flash NPAPI
+      when: "'adobeflash_vulnerable' in group_names"
+      async: 600    
+      ignore_errors: yes
+      win_chocolatey:
+        name: flashplayerplugin
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update Adobe Flash ActiveX
+      when: "'adobeflash_vulnerable' in group_names"
+      async: 600    
+      ignore_errors: yes
+      win_chocolatey:
+        name: flashplayeractivex
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+    
+    - name: Update Adobe Air
+      when: "'adobeair_vulnerable' in group_names"
+      async: 600      
+      ignore_errors: yes
+      win_chocolatey:
+        name: adobeair
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Check if 32-bit version is installed
+      win_stat:
+        path: 'C:\Program Files (x86)\Mozilla Firefox\uninstall\helper.exe'
+      register: ff_result
+
+    - name: Uninstall Old Firefox
+      when: ff_result.stat.exists == true
+      ignore_errors: yes
+      win_command: '"C:\Program Files (x86)\Mozilla Firefox\uninstall\helper.exe" /S'
+      
+    - name: Remove Old Firefox
+      when: ff_result.stat.exists == true
+      win_file:
+        path: 'C:\Program Files (x86)\Mozilla Firefox'
+        state: absent
+                                                                                                                                                                          
+    - name: Update Firefox
+      when: "'mozillafirefox_vulnerable' in group_names or ff_result.stat.exists == true"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: firefox
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update Firefox ESR
+      when: "'mozillafirefoxesr_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: firefoxesr
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update Thunderbird
+      when: "'mozillathunderbird_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: thunderbird
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update Google Chrome
+      when: "'googlechrome_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: googlechrome
+        ignore_checksums: yes
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - block:
+      - name: Remove Oracle Java SE
+        async: 600
+        ignore_errors: yes
+        win_chocolatey:
+          name: jre8
+          state: absent 
+          timeout: 600
+          source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+      - name: Install OpenJDK 8 JRE
+        async: 600
+        ignore_errors: yes
+        win_chocolatey:
+          name: adoptopenjdk8jre
+          state: present
+          timeout: 600
+          source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+      when: "'oraclejre_vulnerable' in group_names"
+
+    - block:
+      - name: Remove Oracle Java JDK
+        async: 600
+        ignore_errors: yes
+        win_chocolatey:
+          name: jdk8
+          state: absent
+          timeout: 600
+          source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+      - name: Install OpenJDK 8
+        async: 600
+        ignore_errors: yes
+        win_chocolatey:
+          name: adoptopenjdk8
+          state: present
+          timeout: 600
+          source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+      when: "'oraclejdk_vulnerable' in group_names"
+
+    - name: Update Zoom
+      when: "'zoom_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: zoom
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+    
+    - block:
+      - name: Remove PuTTY 0.70
+        async: 600
+        ignore_errors: yes
+        win_package: 
+          product_id: '{45B3032F-22CC-40CD-9E97-4DA7095FA5A2}' 
+          state: absent   
+
+      - name: Update PuTTY
+        async: 600
+        ignore_errors: yes
+        win_chocolatey:
+          name: putty
+          state: latest
+          timeout: 600
+          source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+       
+      when: "'putty_vulnerable' in group_names"  
+
+    - name: Update VLC
+      when: "'vlc_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: vlc
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update VirtualBox
+      when: "'virtualbox_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: virtualbox
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update iTunes
+      when: "'itunes_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: itunes
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update VMware Tools
+      when: "'vmwaretools_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: vmware-tools
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - block: 
+        - name: Remove GhostScript
+          win_command: C:\Program Files\gs\gs9.26\gsuninst.exe /S
+          args:
+            removes: C:\Program Files\gs\gs9.26
+       
+        - name: Install GhostScript
+          win_chocolatey:
+            name: ghostscript
+            state: latest
+            timeout: 600
+            source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+      when: "'ghostscript_vulnerable' in group_names"
+
+    - name: Update Foxit Reader
+      when: "'foxitreader_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: foxitreader
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update WinSCP
+      when: "'winscp_vulnerable' in group_names"
+      async: 600
+      ignore_errors: yes
+      win_chocolatey:
+        name: winscp
+        state: latest
+        timeout: 600
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+
+    - name: Update Git                                                                                                                                                                       
+      when: "'git_vulnerable' in group_names"                                                                                                                                                
+      async: 600                                                                                                                                                                                
+      ignore_errors: yes                                                                                                                                                                        
+      win_chocolatey:                                                                                                                                                                           
+        name: git                                                                                                                                                                           
+        state: latest                                                                                                                                                                           
+        timeout: 600                                                                                                                                                                            
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey

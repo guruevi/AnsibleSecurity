@@ -1,0 +1,74 @@
+---                                                                                                                                                                                        
+- name: Create Security Scanner account                                                                                                                                                    
+  hosts: linux:!mac:!windows                                                                                                                                                               
+  become: True
+                                                                                                                                                                                           
+  tasks:
+    - set_fact:
+        antivirus: False
+        cacheable: yes
+
+    - name: Install Cylance Dependencies
+      package:
+        name:
+          - make
+          - gcc
+          - bzip2
+        state: latest
+
+    - name: Install Cylance Dependencies (Debian)
+      when: "ansible_os_family == 'Debian'"
+      package:
+        name:
+          - libxml2-utils
+          - linux-headers-generic
+        state: latest
+
+    - name: Install Cylance Dependencies (RedHat)
+      when: "ansible_os_family == 'RedHat'"
+      package:
+        name:
+          - epel-release
+          - libxml2
+          - kernel-devel
+        state: latest
+
+    - name: Install EPEL key (RedHat)
+      when: "ansible_distribution == 'CentOS'"
+      rpm_key:
+        state: present
+        key: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+
+    - name: Create directory
+      file:
+        path: /opt/cylance
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+    
+    - name: Copy installation file
+      copy:
+        src: ../../../vars/config_defaults.txt
+        dest: /opt/cylance/config_defaults.txt
+        mode: 0644
+
+    - name: Install Cylance for Ubuntu 18.04 - 2.1.1550.1714
+      apt: deb="https://rochester.box.com/shared/static/ej63o80hh6l6rib9xeku65tnidkvowm9.deb"
+      when:
+        - "ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'"
+        - "'cylance-protect' not in ansible_facts.packages or ansible_facts.packages['cylance-protect'][0].version != '2.1.1550.1714'"
+     
+
+    - name: Install Cylance for CentOS/RedHat EL7                                                                                                                                                   
+      yum: name="https://rochester.box.com/shared/static/5lu2ejj8xyp2wzz1mjfjoy0f0n8ht1ji.rpm"
+      when:                                                                                                                                                                                                     
+         - "ansible_distribution in ['CentOS','RedHat'] and ansible_distribution_major_version == '7'"
+         - "'cylance-protect' not in ansible_facts.packages or ansible_facts.packages['cylance-protect'][0].version != '2.1.1550.1714'"                                                                                                                      
+
+- name: Machines that do have Cylance
+  hosts: linux:&cylance
+  tasks:
+    - set_fact:
+        antivirus: True
+        cacheable: yes

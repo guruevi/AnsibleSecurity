@@ -1,0 +1,37 @@
+---
+- name: Install CrashPlan
+  gather_facts: true
+  hosts: all:!crashplan
+  roles:
+    - guruevi.mac_package
+  tasks:
+    - name: Install CrashPlan (Win64)
+      when:
+        - ansible_os_family == 'Windows'
+        - ansible_architecture == '64-bit'
+      win_package:
+        path: \\files.urmc-sh.rochester.edu\packages\Code42CrashPlan_6.8.5_1525200006685_36_Win64.msi
+        arguments: '/q'
+        product_id: '{2E94C1D3-9B8A-41E6-9DF9-7B1AA15230F2}'
+
+    - name: Install CrashPlan (Win64)
+      when:
+        - ansible_os_family == 'Windows'
+        - ansible_architecture == '32-bit'
+      win_package:
+        path: \\files.urmc-sh.rochester.edu\packages\Code42CrashPlan_6.8.5_1525200006685_36_Win.msi
+        arguments: '/q'
+        product_id: '{2E94C1D3-9B8A-41E6-9DF9-7B1AA15230F2}'
+
+    - name: Install CrashPlan (Mac64)
+      become: yes
+      when:
+        - ansible_os_family == 'Darwin'
+        - ansible_architecture == 'x86_64'
+      mac_package:
+        pkg_type: "pkg"
+        url: "https://rochester.box.com/shared/static/kni60u0cf8o2ap44lwk5s0i2aqxyust1.dmg"
+        archive_type: "dmg"
+        archive_path: "Install Code42 CrashPlan.pkg"
+        pkg_name: "com.crashplan.app.pkg"
+        pkg_version: "1"

@@ -1,0 +1,22 @@
+---
+- name: Install Cylance (Windows)
+  hosts: windows:!cylance
+  ignore_errors: yes
+  tasks:
+    - set_fact:
+        antivirus: False
+        cacheable: yes
+
+    - name: Install Cylance for x64
+      when: ansible_architecture == '64-bit'
+      win_package:
+        path: \\files.urmc-sh.rochester.edu\packages\CylanceUnifiedSetup_x64.msi
+        arguments: '/q /l*v C:\Windows\Temp\CylanceInstall.log PIDKEY=XUW08uB24vOx482GVC6EzDoG LAUNCHAPP=0'
+        product_id: '{2E64FC5C-9286-4A31-916B-0D8AE4B22954}'
+
+- name: Machines that do have Cylance
+  hosts: cylance:&windows
+  tasks:
+    - set_fact:
+        antivirus: True
+        cacheable: yes

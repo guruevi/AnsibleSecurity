@@ -1,0 +1,46 @@
+#!/bin/bash
+IFS=$'\n'
+
+if [ "$1" == "--list" ]; then
+echo '{"_meta": {"hostvars": {}}, "crashplan": { "children": ["windows_crashplan", "mac_crashplan", "linux_crashplan", "unknown_crashplan"'
+
+  function strip_chars {
+      declare -a out
+      for t in $*; do
+        out+=($(echo "$t" | awk -F',' 'length($3) > 0 {print toupper($3)}' | cut -d"." -f1 ))
+      done
+      if [ ${#out[@]} -gt 0 ]; then
+        unique=($(printf "\"%s\"\n" "${out[@]}" | sort -u))
+        (IFS=","; echo "${unique[*]}")
+      fi
+  }
+
+csv_file=$(tail -n +2 ~/Box/Boomi/Crashplan/*)
+
+echo ']},"windows_crashplan": { "hosts": ['
+
+hosts=$(echo "${csv_file[*]}" | grep ",win,")
+strip_chars "${hosts[*]}"
+
+echo ']},"linux_crashplan": { "hosts": ['
+
+hosts=$(echo "${csv_file[*]}" | grep ",linux,")
+strip_chars "${hosts[*]}"
+
+echo ']},"mac_crashplan": { "hosts": ['
+
+hosts=$(echo "${csv_file[*]}" | grep ",mac," | LC_ALL=C sed -e "s/[^[:print:]]//g" -e "s/\'//g" -e "s/ /-/g")
+strip_chars "${hosts[*]}"
+
+echo ']},"unknown_crashplan": { "hosts": ['
+
+hosts=$(echo "${csv_file[*]}" | grep -v ",linux," | grep -v ",mac," | grep -v ",win,")
+strip_chars "${hosts[*]}"
+
+echo ']}}'
+
+elif [ "$1" == "--host" ]; then
+  echo '{"_meta": {"hostvars": {}}}'
+else
+  echo "{ }"
+fi

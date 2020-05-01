@@ -1,0 +1,11 @@
+- name: Get Domain Computer Facts                                                                                                                                                                                     
+  become: false 
+  shell: "{{ playbook_dir }}/scripts/lookup_host.sh {{ inventory_hostname_short }}"                                                                                                                                   
+  delegate_to: localhost                                                                                                                                                                                              
+  register: domain_details                                                                                                                                                                                            
+  failed_when: domain_details.rc > 0                                                                                                                                                                                  
+  changed_when: False                                                                                                                                                                                                 
+                                                                                                                                                                                                                          
+- set_fact:                                                                                                                                                                                                           
+    domain_details: "{{ domain_details.stdout }}"                                                                                                                                                                     
+    cacheable: yes

@@ -1,0 +1,5 @@
+---
+- import_playbook: security/remove_admins.yml
+- import_playbook: security/enable_filevault.yml
+- import_playbook: security/enable_ard.yml
+- import_playbook: security/cylance.yml

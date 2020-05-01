@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Richard Oliver
+  description: FileVault module
+
+  license: BSD
+
+  min_ansible_version: 1.2
+
+  platforms:
+    - name: MacOSX
+      versions: all
+
+  galaxy_tags:
+    - system
+    - security
+    - encryption
+    - filevault
+    - fdesetup

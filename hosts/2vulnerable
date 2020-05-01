@@ -1,0 +1,221 @@
+#!/bin/bash
+IFS=$'\n'
+
+if [ "$1" == "--list" ]; then
+
+  echo '{"_meta": 
+            {
+              "hostvars": {}
+            }, 
+          "vulnerable": 
+            { 
+              "children": 
+                [
+                "windows_vulnerable",
+                "mac_vulnerable",
+                "linux_vulnerable",
+                "unknown_vulnerable",
+                "mozillafirefox_vulnerable",
+                "mozillafirefoxesr_vulnerable",
+                "mozillathunderbird_vulnerable",
+                "adobeflash_vulnerable",
+                "adobereader_vulnerable",
+                "adobeacrobat_vulnerable",
+                "adobeair_vulnerable",
+                "googlechrome_vulnerable",
+                "oraclejre_vulnerable",
+                "oraclejdk_vulnerable",
+                "winzip_vulnerable",
+                "winscp_vulnerable",
+                "reboot_vulnerable",
+                "speculative_vulnerable",
+                "winsmbv1_vulnerable",
+                "zoom_vulnerable",
+                "virtualbox_vulnerable",
+                "securityupdates_vulnerable",
+                "vlc_vulnerable",
+                "git_vulnerable",
+                "itunes_vulnerable",
+                "putty_vulnerable",
+                "ghostscript_vulnerable",
+                "anyconnect_vulnerable",
+                "credssp_vulnerable",
+                "sweet32_vulnerable",
+                "poodle_vulnerable",
+                "logjam_vulnerable",
+                "barmitzvah_vulnerable",
+                "smbsigning_vulnerable",
+                "vmwaretools_vulnerable"
+                ]
+            },
+          "windows_vulnerable":
+            { "hosts":
+              ['
+
+  function strip_chars {
+      declare -a out
+      for t in $*; do
+        out+=($(echo "$t" | awk -F'","' 'length($7) > 0 {print toupper($7)}' | cut -d"." -f1 ))
+      done
+      if [ ${#out[@]} -gt 0 ]; then
+        unique=($(printf "\"%s\"\n" "${out[@]}" | sort -u))
+        (IFS=","; echo "${unique[*]}")
+      fi
+  }
+
+  csv_file=$(tail -n +2 ~/Box/Boomi/Vulnerabilities/CSV\ Vuln*.csv)
+
+  hosts=$(echo "${csv_file[*]}" | grep "Windows")
+  strip_chars "${hosts[*]}"
+
+  echo ']},"mac_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep -i "mac" | grep -v "MAC")
+  strip_chars "${hosts[*]}"
+
+  echo ']},"linux_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep -i "linux" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"unknown_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep -v "Windows" | grep -vi "mac" | grep -v "MAC" | grep -vi "linux")
+  strip_chars "${hosts[*]}"
+
+  echo ']},"mozillafirefoxesr_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Mozilla Firefox ESR" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"mozillafirefox_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Mozilla Firefox" | grep -v "ESR" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"mozillathunderbird_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Mozilla Thunderbird" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"adobeflash_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Adobe Flash" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"adobereader_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Adobe Reader" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"adobeacrobat_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Adobe Acrobat Unsupported" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"adobephotoshopcc_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Adobe Photoshop CC" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"adobeillustratorcc_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Adobe Illustrator CC" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"adobeair_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Adobe AIR" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"googlechrome_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Chrome" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"oraclejre_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Oracle Java SE" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"oraclejdk_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Oracle Java JDK" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"winzip_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "WinZip" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"reboot_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Microsoft Windows Update Reboot Required" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"winsmbv1_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Microsoft Windows SMBv1" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"zoom_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Zoom Client for Meetings" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"virtualbox_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "VirtualBox" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"securityupdates_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Microsoft Bulletins" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"vlc_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "VLC" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"itunes_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "iTunes" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"putty_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "PuTTY" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"ghostscript_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Ghostscript" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"anyconnect_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Cisco AnyConnect" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"winscp_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "WinSCP" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"credssp_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "CredSSP" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"sweet32_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "SWEET32" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"poodle_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "POODLE" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"logjam_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Logjam" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"barmitzvah_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Bar Mitzvah" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"smbsigning_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "SMB Signing not required" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"git_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Git" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"speculative_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "Speculative Execution" )
+  strip_chars "${hosts[*]}"
+
+  echo ']},"vmwaretools_vulnerable": { "hosts": ['
+  hosts=$(echo "${csv_file[*]}" |  grep "VMware Tools" )
+  strip_chars "${hosts[*]}"
+
+  echo ']}}'
+
+  elif [ "$1" == "--host" ]; then
+    echo '{"_meta": {"hostvars": {}}}'
+  else
+    echo "{ }"
+fi

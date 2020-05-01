@@ -1,0 +1,6 @@
+---
+- name: Windows 8 to 10
+  hosts: win8
+  tasks:
+     - name: Upgrade 8 to 10
+       meta: noop

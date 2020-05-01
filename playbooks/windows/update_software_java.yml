@@ -1,0 +1,271 @@
+---
+- name: Update Java Software 
+  hosts: oraclejre_vulnerable:oraclejdk_vulnerable:!exceptions 
+  gather_facts: false
+
+  tasks:
+    - name: Uninstalling Java (32-bit) 8u11
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218011F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u20
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218020F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u25
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218025F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u31
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218031F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u40
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218040F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u45
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218045F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u51
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218051F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u60
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218060F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u65
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218065F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u66
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218066F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u71
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218071F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u72
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218072F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u73
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218073F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u74
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218074F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u77
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218077F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u91
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F83218091F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u101
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180101F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u111
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180111F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u121
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180121F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u131
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180131F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u141
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180141F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u144
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180144F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u151
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180151F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u152
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180152F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u161
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180161F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u162
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180162F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u171
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180171F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u172
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180172F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u181
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180181F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u191
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180191F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u192
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180192F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u201
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180201F0}'
+        state: absent
+    - name: Uninstalling Java (32-bit) 8u202
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F32180202F0}'
+        state: absent
+
+    - name: Uninstalling Java 8u11
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418011F0}'
+        state: absent
+    - name: Uninstalling Java 8u20
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418020F0}'
+        state: absent
+    - name: Uninstalling Java 8u25
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418025F0}'
+        state: absent
+    - name: Uninstalling Java 8u31
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418031F0}'
+        state: absent
+    - name: Uninstalling Java 8u40
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418040F0}'
+        state: absent
+    - name: Uninstalling Java 8u45
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418045F0}'
+        state: absent
+    - name: Uninstalling Java 8u51
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418051F0}'
+        state: absent
+    - name: Uninstalling Java 8u60
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418060F0}'
+        state: absent
+    - name: Uninstalling Java 8u65
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418065F0}'
+        state: absent
+    - name: Uninstalling Java 8u66
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418066F0}'
+        state: absent
+    - name: Uninstalling Java 8u71
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418071F0}'
+        state: absent
+    - name: Uninstalling Java 8u72
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418072F0}'
+        state: absent
+    - name: Uninstalling Java 8u73
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418073F0}'
+        state: absent
+    - name: Uninstalling Java 8u74
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418074F0}'
+        state: absent
+    - name: Uninstalling Java 8u77
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418077F0}'
+        state: absent
+    - name: Uninstalling Java 8u91
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F86418091F0}'
+        state: absent
+    - name: Uninstalling Java 8u101
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180101F0}'
+        state: absent
+    - name: Uninstalling Java 8u111
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180111F0}'
+        state: absent
+    - name: Uninstalling Java 8u121
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180121F0}'
+        state: absent
+    - name: Uninstalling Java 8u131
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180131F0}'
+        state: absent
+    - name: Uninstalling Java 8u141
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180141F0}'
+        state: absent
+    - name: Uninstalling Java 8u144
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180144F0}'
+        state: absent
+    - name: Uninstalling Java 8u151
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180151F0}'
+        state: absent
+    - name: Uninstalling Java 8u152
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180152F0}'
+        state: absent
+    - name: Uninstalling Java 8u161
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180161F0}'
+        state: absent
+    - name: Uninstalling Java 8u162
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180162F0}'
+        state: absent
+    - name: Uninstalling Java 8u171
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180171F0}'
+        state: absent
+    - name: Uninstalling Java 8u172
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180172F0}'
+        state: absent
+    - name: Uninstalling Java 8u181
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180181F0}'
+        state: absent
+    - name: Uninstalling Java 8u191
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180191F0}'
+        state: absent
+    - name: Uninstalling Java 8u192
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180192F0}'
+        state: absent
+    - name: Uninstalling Java 8u201
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180201F0}'
+        state: absent
+    - name: Uninstalling Java 8u202
+      win_package:
+        product_id: '{26A24AE4-039D-4CA4-87B4-2F64180202F0}'
+        state: absent

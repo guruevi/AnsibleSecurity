@@ -1,0 +1,30 @@
+---
+- name: Setup PS requirements for all hosts
+  hosts: 'NSC-TESTWIN10'
+  vars:
+    evanoost_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62626563643432346261623433343962343264376534393562333732333465333234343261386134
+          3132616534663266383832333532663539356163653263330a343133303764633534636230633439
+          39616531663635616237313230373463653034626535643063653336356137366534623737383764
+          3365383035666434320a636665616563376531326165636464356564633530336432653562373836
+          3632
+  tasks:
+  - name: install psexec
+    win_chocolatey:
+      name: sysinternals
+      state: present
+
+  - name: copy script
+    win_copy:
+      src: scripts/ConfigureRemotingForAnsible.ps1
+      dest: 'C:\Windows\temp\upgrade_script.ps1'
+
+  - name: setup PS with psexec - Domain
+    win_psexec:
+      command: 'powershell.exe -File C:\Windows\temp\upgrade_script.ps1'
+      hostnames: "{{ item }}"
+      username: 'evanoost'
+      password: '{{ evanoost_pass }}'
+    ignore_errors: yes
+    with_items: "{{ groups['windows_domain'] | intersect(ansible_limit) }}"

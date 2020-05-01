@@ -1,0 +1,26 @@
+---
+- name: Install Windows Updates
+  hosts: windows
+  gather_facts: false
+  tasks:
+     - name: Run Windows Update
+       ignore_errors: yes
+       win_updates:
+         state: installed
+         server_selection: windows_update
+         category_names:
+           - SecurityUpdates
+           - CriticalUpdates
+           - UpdateRollups
+           - Application
+           - Connectors
+           - DefinitionUpdates
+           - DeveloperKits
+           - FeaturePacks
+           - Guidance
+           - ServicePacks
+           - Tools
+           - Updates
+           - Upgrades
+           - Drivers
+

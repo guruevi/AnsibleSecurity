@@ -1,0 +1,18 @@
+---
+- name: Create Security Scanner account 
+  hosts: linux:!mac:!windows
+  become: True
+
+  tasks:
+     - user:
+         name: spscanner 
+         state: present
+
+     - authorized_key:
+         user: spscanner
+         state: present
+         key: "{{ item }}"
+       with_file:
+       - ../../../vars/ssh_keys.pub 
+
+

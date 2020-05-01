@@ -1,0 +1,59 @@
+---
+- name: Connect to AD 
+  hosts: windows:!exceptions
+  gather_facts: false
+  vars:
+    evanoost_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          64346137333266326435653862656631653333336266306330656638333839326464636638353033
+          3131376535623935316133386537613535616138313762300a623732326133383865616633353730
+          61303061656233613963636234356637323736656634653565356364613461633637636534363235
+          6637666337396539390a633463653764646637363439306635373736623061353636343263356335
+          34333539633835333437343030663964396536373932303062666263306631303066 
+ 
+  tasks:
+    - name: Install PSExec
+      win_chocolatey:
+        name: sysinternals
+        state: latest 
+    
+    - name: Join Domain
+      win_domain_membership:
+        dns_domain_name: URMC-SH.ROCHESTER.EDU
+        hostname: '{{ inventory_hostname }}'
+        state: domain
+        domain_admin_user: evanoost 
+        domain_admin_password: '{{ evanoost_pass }}'
+      register: domain_state
+    
+    - name: Add ISDL_RCBI Admins
+      win_group_membership:
+        name: Administrators
+        members:
+          - ISDAdmin
+          - URMC-SH\ISDL_RCBI Admins
+          - URMC-SH\ISDG_NeuroAna_ITSupport
+        state: present
+
+    - name: Remove other Admins
+      win_group_membership:
+        name: Administrators
+        members:
+          - URMC-SH\mdiltz 
+          - URMC-SH\rschor
+        state: absent
+   
+   - name: Unlock ISD Admin
+      win_user:
+        name: ISDAdmin
+        account_locked: no
+        account_disabled: no
+    
+   - name: Remove NBA_Admin
+      win_user:
+        name: NBA_Admin
+        state: absent
+
+    - name: Reboot after Domain Join
+      win_reboot:
+        when: domain_state.reboot_required

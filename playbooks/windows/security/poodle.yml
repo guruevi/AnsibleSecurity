@@ -1,0 +1,32 @@
+---
+- name: Fix POODLE
+  hosts: poodle_vulnerable:&windows
+  tasks:
+    - name: Disable SSLv3 Client
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client
+        name: Enabled
+        data: 0
+        type: dword
+        state: present
+    - name: Disable SSlv3 Server
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+        name: Enabled
+        data: 0
+        type: dword
+        state: present
+    - name: Disable SSLv3 Client Default
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client
+        name: DisabledByDefault
+        data: 1
+        type: dword
+        state: present
+    - name: Disable SSlv3 Server Default
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+        name: DisabledByDefault
+        data: 1
+        type: dword
+        state: present

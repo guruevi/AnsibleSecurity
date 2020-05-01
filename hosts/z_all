@@ -1,0 +1,6 @@
+[all:children]
+windows
+mac
+linux
+bsd
+exceptions

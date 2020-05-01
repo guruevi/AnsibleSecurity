@@ -1,0 +1,15 @@
+#!/bin/bash
+if [ "$1" == "--list" ]; then
+echo '{"_meta": {"hostvars": {}}, 
+
+"scanned": { "hosts": [' 
+hosts=`cat ~/Box/Boomi/Vulnerabilities/CSV\ Asset*.csv | tail -n +2 | awk -F'","' '{print toupper($1)}' | awk -F "."  '{print $1 "\","}' | sort | uniq`
+echo $hosts | sed s'/.$//'
+
+echo ']}}'
+
+elif [ "$1" == "--host" ]; then
+  echo '{"_meta": {"hostvars": {}}}'
+else
+  echo "{ }"
+fi

@@ -1,0 +1,33 @@
+#!/bin/bash
+DC=`nslookup -type=any _ldap._tcp.urmc-sh.rochester.edu | grep _ldap._tcp | awk '{print $7}' | head -n 1`
+if [ "$1" == "--list" ]; then
+echo '{"_meta": {"hostvars": {}},"windows_domain": { "children": ["windows_domain_rcbi", "windows_domain_ns"]}, "windows_domain_rcbi": { "children": ["windows10_domain_rcbi"]}, "windows_domain_ns": { "children": ["windows7_domain_ns","windows10_domain_ns","windowsxp_domain_ns"'
+
+echo ']}, "windows10_domain_rcbi": { "hosts": ['
+hosts=`ldapsearch -H ldap://$DC -b "OU=RCBI,OU=Departmental OUs,OU=URMC,DC=urmc-sh,DC=rochester,DC=edu" "(&(objectCategory=Computer)(operatingSystem=Windows 10*))" cn 2> /dev/null | grep "cn:" | awk '{print "\"" toupper($2) "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']}, "windowsxp_domain_ns": { "hosts": ['
+hosts=`ldapsearch -H ldap://$DC -b "OU=Neurobiology_Anatomy,OU=Research,OU=Departmental OUs,OU=URMC,DC=urmc-sh,DC=rochester,DC=edu" "(&(objectCategory=Computer)(operatingSystem=Windows XP*))" cn 2> /dev/null | grep "cn:" | awk '{print "\"" toupper($2) "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']}, "windows7_domain_ns": { "hosts": ['
+hosts=`ldapsearch -H ldap://$DC -b "OU=Neurobiology_Anatomy,OU=Research,OU=Departmental OUs,OU=URMC,DC=urmc-sh,DC=rochester,DC=edu" "(&(objectCategory=Computer)(operatingSystem=Windows 7*))" cn 2> /dev/null | grep "cn:" | awk '{print "\"" toupper($2) "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']}, "windows8_domain_ns": { "hosts": ['
+hosts=`ldapsearch -H ldap://$DC -b "OU=Neurobiology_Anatomy,OU=Research,OU=Departmental OUs,OU=URMC,DC=urmc-sh,DC=rochester,DC=edu" "(&(objectCategory=Computer)(operatingSystem=Windows 8*))" cn 2> /dev/null | grep "cn:" | awk '{print "\"" toupper($2) "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']}, "windows10_domain_ns": { "hosts": ['
+hosts=`ldapsearch -H ldap://$DC -b "OU=Neurobiology_Anatomy,OU=Research,OU=Departmental OUs,OU=URMC,DC=urmc-sh,DC=rochester,DC=edu" "(&(objectCategory=Computer)(operatingSystem=Windows 10*))" cn 2> /dev/null | grep "cn:" | awk '{print "\"" toupper($2) "\","}'`
+echo $hosts | sed s'/.$//'
+
+echo ']}}'
+
+
+elif [ "$1" == "--host" ]; then
+  echo '{"_meta": {"hostvars": {}}}'
+else
+  echo "{ }"
+fi

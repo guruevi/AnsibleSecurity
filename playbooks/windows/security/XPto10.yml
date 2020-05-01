@@ -1,0 +1,6 @@
+---
+- name: Windows XP to 10
+  hosts: winxp
+  tasks:
+     - name: Upgrade XP to 10
+       meta: noop

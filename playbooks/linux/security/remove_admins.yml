@@ -1,0 +1,35 @@
+---
+- name: Set up ISDAdmin
+  hosts: linux:!mac:!windows
+  become: True
+  vars:
+    isdadmin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35303530376438303332326130393635376439323562396437636239313138353934383964353837
+          6437613733663035383064393038396632643639643764300a663064313739333936666438623936
+          63336533656165306537663130326464393030323037373164616464373236306530616138386636
+          3935646437383936620a323830666431376132303434646431616266386436316663373834353363
+          32326462396266323134343032376164383537633161336335333131386561383966
+  tasks:
+     - name: Get Groups
+       shell: /usr/bin/getent group | awk -F":" '{print $1}'
+       register: etc_groups
+       changed_when: False
+ 
+     - user:
+         name: isdadmin
+         state: present
+         groups: "{{ item }}"
+         password: "{{ isdadmin_password | string | password_hash('sha512') }}"
+         update_password: on_create
+       when: item in etc_groups.stdout_lines
+       with_items: 
+         - sudo
+         - wheel
+
+     - authorized_key:                                                                                                                                                                                          
+         user: isdadmin                                                                                                                                                                                    
+         state: present                                                                                                                                                                                         
+         key: "{{ item }}"                                                                                                                                                                                      
+       with_file:                                                                                                                                                                                               
+       - /Users/evanoost/.ssh/id_rsa.pub    

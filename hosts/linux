@@ -1,0 +1,12 @@
+[linux]
+HYPERVISOR2
+HYPERVISOR3
+DICOM
+FIONA
+NSC-FOXE33
+
+[linux:children]
+linux_vulnerable
+linux_crashplan
+linux_cylance
+linux_domain

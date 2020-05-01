@@ -1,0 +1,29 @@
+---
+- hosts: windows:!bsd:!linux:!mac:!exceptions
+  gather_facts: true
+  roles:
+    - ansible.bitlocker
+    - guruevi.win_sessions
+    - guruevi.win_pnpdevice
+    - guruevi.win_packages_facts
+  tasks:
+    - win_packages_facts:
+    - import_tasks: playbooks/query_ad.yml
+    - win_pnpdevice_facts:
+    - name: Upgrade installed packages
+      win_chocolatey:
+        name: all
+        state: latest
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+    - win_disk_facts:
+    - win_chocolatey_facts:
+    - win_product_facts:
+    - set_fact:
+        boot_encrypted: "{{ ansible_facts.bitlocker | selectattr ('MountPoint', 'equalto', 'C:') | map(attribute='VolumeStatus') | first | bool }}"
+        cacheable: yes
+  ignore_errors: yes
+- import_playbook: playbooks/crashplan.yml
+- import_playbook: playbooks/windows/update_software.yml
+- import_playbook: playbooks/windows/update_software_adobe.yml
+- import_playbook: playbooks/windows/security.yml
+#- import_playbook: playbooks/windows/update_windows.yml

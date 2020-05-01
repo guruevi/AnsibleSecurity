@@ -1,0 +1,200 @@
+---
+- name: Update Adobe Software 
+  hosts: adobereader_vulnerable:adobeacrobat_vulnerable:adobeillustratorcc_vulnerable:adobephotoshopcc_vulnerable:!exceptions 
+  gather_facts: false
+
+  tasks:
+    - name: Uninstall Adobe Reader 6.0 & 6.0.1
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-000000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 6.0.2
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-0000-0000-6028747ADE01}' 
+        state: absent
+    - name: Uninstall Adobe Reader 6.0.3
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-7EC8-7489-000000000603}' 
+        state: absent
+    - name: Uninstall Adobe Reader 6.0.4
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-7EC8-7489-000000000604}' 
+        state: absent
+    - name: Uninstall Adobe Reader 6.0.5
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-7EC8-7489-000000000605}' 
+        state: absent
+    - name: Uninstall Adobe Reader 6.0.6
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-7EC8-7489-000000000606}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A70000000000}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0.1 Update
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-7EC8-7489-000000000702}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0.2 Update
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-7EC8-7489-000000000703}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0.3 Update
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-0000-7EC8-7489-000000000704}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0.5
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A70500000002}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0.7 update
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-1033-F400-7760-100000000002}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0.8 update
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-1033-0000-7760-100000000002}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.0.9 update
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A70900000002}' 
+        state: absent
+    - name: Uninstall Adobe Reader 7.1 & ALL 7.1.x updates
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A71000000002}' 
+        state: absent
+    - name: Uninstall Adobe Reader 8.0
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A80000000002}' 
+        state: absent
+    - name: Uninstall Adobe Reader 8.1
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A81000000003}' 
+        state: absent
+    - name: Uninstall Adobe Reader 8.1.2
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A81200000003}' 
+        state: absent
+    - name: Uninstall Adobe Reader 8.1.2 (With Security Update)
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{6846389C-BAC0-4374-808E-B120F86AF5D7}' 
+        state: absent
+    - name: Uninstall Adobe Reader 8.1.3 – 8.1.6
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A81300000003}' 
+        state: absent
+    - name: Uninstall Adobe Reader 9.1.0
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A91000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 9.2.0
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A92000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 9.3.0 – 9.3.4
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A93000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 9.4.0 – 9.4.7
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A94000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 9.5.0 – 9.5.5
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-A95000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 10.0
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-AA0000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 10.1
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-AA1000000001}' 
+        state: absent
+    - name: Uninstall Adobe Reader 11.0.x
+      when: "'adobereader_vulnerable' in group_names"
+      win_package: 
+        product_id: '{AC76BA86-7AD7-1033-7B44-AB0000000001}' 
+        state: absent
+    - name: Uninstall Adobe Acrobat X
+      when: "'adobeacrobat_vulnerable' in group_names"
+      win_package:
+        product_id: '{AC76BA86-1033-F400-7760-000000000005}'
+        state: absent
+    - name: Uninstall Adobe Acrobat XI
+      when: "'adobeacrobat_vulnerable' in group_names"
+      win_package:
+        product_id: '{AC76BA86-1033-FFFF-7760-000000000006}'
+        state: absent
+    - name: Uninstall Adobe Acrobat DC 2015
+      when: "'adobeacrobat_vulnerable' in group_names"
+      win_package:
+        product_id: '{AC76BA86-1033-FFFF-7760-0E0F06755100}'
+        state: absent
+    - name: Uninstall Adobe Illustrator CS6
+      when: "'adobeillustrator_vulnerable' in group_names"
+      win_package:
+        product_id: '{AC76BA86-1033-FFFF-7760-0E0F06755100}'
+        state: absent
+    - name: Uninstall Adobe Acrobat Reader DC 15
+      when: "'adobereader_vulnerable' in group_names"
+      async: 600
+      win_package:
+        product_id: '{AC76BA86-7AD7-1033-7B44-AC0F074E4100}'
+        state: absent
+    - name: Update Adobe Reader
+      ignore_errors: yes
+      when: "'adobereader_vulnerable' in group_names"
+      async: 600
+      win_chocolatey:
+        source: http://nba-retrospect.urmc-sh.rochester.edu/chocolatey
+        name: adobereader
+        state: latest
+        timeout: 600
+          
+      
+    - name: Remove Adobe Photoshop CC 2018
+      win_command: '"C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\HDBox\Uninstaller.exe" --uninstall=1 --sapCode=PHSP --productVersion=19.1.6 --productPlatform=win64 --productAdobeCode={PHSP-19.1.6-64-ADBEADBEADBEADBEADBEA} --productName="Photoshop CC" --mode=0'
+      when: "'adobephotoshopcc_vulnerable' in group_names"
+    
+    - name: Remove Adobe Illustrator CC 2018
+      win_command: '"C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\HDBox\Uninstaller.exe" --uninstall=1 --sapCode=ILST --productVersion=22.1 --productPlatform=win64 --productAdobeCode={ILST-22.1-64-ADBEADBEADBEADBEADBEADB} --productName="Illustrator CC" --mode=0'
+      when: "'adobeillustratorcc_vulnerable' in group_names"
+   
+    - name: Copy Adobe RemoteUpdater
+      when: "'adobeillustratorcc_vulnerable' in group_names or 'adobephotoshopcc_vulnerable' in group_names"
+      win_copy:
+        src: ../../packages/RemoteUpdateManager.exe
+        dest: 'C:\Program Files (x86)\Common Files\Adobe\OOBE_Enterprise\RemoteUpdateManager\'
+
+    - name: Run RemoteUpdater
+      when: "'adobeillustratorcc_vulnerable' in group_names or 'adobephotoshopcc_vulnerable' in group_names"
+      win_command: '"C:\Program Files (x86)\Common Files\Adobe\OOBE_Enterprise\RemoteUpdateManager\RemoteUpdateManager.exe"'

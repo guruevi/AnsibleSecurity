@@ -1,0 +1,27 @@
+---
+- name: Fix Windows Speculative Execution 
+  hosts: speculative_vulnerable:&windows:!exceptions 
+  tasks:
+    - name: Set MinVMVersionForCpuBasedMitigations
+      win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Virtualization
+        name: MinVmVersionForCpuBasedMitigations
+        data: 1.0
+        type: string
+        state: present
+
+    - name: Set FeatureSettingsOverrideMask 
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
+        name: FeatureSettingsOverrideMask
+        data: 0x00000003
+        type: dword
+        state: present
+
+    - name: Set FeatureSettingsOverride
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
+        name: FeatureSettingsOverride
+        data: 0x00000048
+        type: dword
+        state: present

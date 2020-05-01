@@ -1,0 +1,25 @@
+---                                                                                                                                                                                        
+- name: Upgrade Linux                                                                                                                                                 
+  hosts: linux:!mac:!windows                                                                                                                                                               
+  become: True                                                                                                                                                                             
+                                                                                                                                                                                           
+  tasks:
+    - name: Update Yum Cache
+      when: ansible_pkg_mgr == "yum"
+      yum:
+        update_cache: yes
+        name: "*"
+        state: latest
+      
+    - name: Upgrade all packages to the latest version
+      when: ansible_pkg_mgr == "apt" 
+      apt:
+        update_cache: yes
+        name: "*"
+        state: latest
+
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist 
+      when: ansible_pkg_mgr == "apt"
+

@@ -1,0 +1,15 @@
+---
+- name: Remove NBA_Admin
+  hosts: mac:!windows:!linux
+  tasks:
+    - name: Remove NBA_Admins
+      become: yes
+      ignore_errors: yes
+      user:
+        name: "{{ item }}"
+        state: absent
+        remove: yes
+      with_items:
+        - nba_admin
+        - nbaadmin
+        - nsadmin

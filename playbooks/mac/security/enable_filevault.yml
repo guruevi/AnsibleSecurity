@@ -1,0 +1,20 @@
+---
+- name: Enable FileVault
+  hosts: mac:!windows:!linux:!bsd:!exceptions
+  become: True
+  roles:
+  - role: roliver.filevault
+ 
+  tasks: 
+    - filevault:
+        enabled: True
+      ignore_errors: yes
+
+    - set_fact:
+        ansible_tpm:
+          TpmPresent: True
+        cacheable: yes
+
+    - set_fact:
+        boot_encrypted: "{{ ansible_facts.filevault.enabled | bool }}"
+        cacheable: yes

@@ -1,0 +1,39 @@
+---
+- name: Fix SWEET32
+  hosts: sweet32_vulnerable:&windows
+  tasks:
+    - name: Disable TLSv1.0 Client
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client
+        name: Enabled
+        data: 0
+        type: dword
+        state: present
+    - name: Disable TLSv1.0 Server
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+        name: Enabled
+        data: 0
+        type: dword
+        state: present
+    - name: Disable TLSv1.0 Client Default
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client
+        name: DisabledByDefault
+        data: 1
+        type: dword
+        state: present
+    - name: Disable TLSv1.0 Server Default
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+        name: DisabledByDefault
+        data: 1
+        type: dword
+        state: present
+    - name: Disable 3DES-168
+      win_regedit:
+        Path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168
+        name: Enabled
+        data: 0
+        type: dword
+        state: present

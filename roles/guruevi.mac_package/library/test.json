@@ -1,0 +1,9 @@
+{
+    "ANSIBLE_MODULE_ARGS": {
+        "pkg_type": "pkg",
+        "url": "https://rochester.box.com/shared/static/kni60u0cf8o2ap44lwk5s0i2aqxyust1.dmg",
+        "archive_type": "dmg",
+        "archive_path": "Install Code42 CrashPlan.pkg",
+        "creates": "CrashPlan.app"
+    }
+}

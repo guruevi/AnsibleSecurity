@@ -1,0 +1,11 @@
+---
+- name: Reboot idle Windows
+  hosts: windows
+  gather_facts: true
+  roles:
+    - guruevi.win_sessions
+  tasks:
+    - name: Reboot if empty
+      win_reboot:
+      when:
+        - "ansible_facts['reboot_pending'] == true and (ansible_facts['user_sessions']|length == 0)"

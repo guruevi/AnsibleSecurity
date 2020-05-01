@@ -1,0 +1,9 @@
+---
+- name: Enable Remote Management
+  hosts: mac:!windows:!linux
+  tasks:
+     - name: Enable remote management access   
+       command: '/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -allowAccessFor -allUsers -privs -all'
+       become: yes
+
+

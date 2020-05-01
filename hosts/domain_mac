@@ -1,0 +1,16 @@
+#!/bin/bash
+IFS=$'\n'
+DC=`nslookup -type=any _ldap._tcp.urmc-sh.rochester.edu | grep _ldap._tcp | awk '{print $7}' | head -n 1` 
+if [ "$1" == "--list" ]; then
+echo '{"_meta": {"hostvars": {}},"mac_domain": { "children": ["mac_domain_rcbi", "mac_domain_ns"]}, "mac_domain_rcbi": { "hosts": ['
+hosts=`ldapsearch -H ldap://$DC -b "OU=Computers,OU=RCBI,OU=Departmental OUs,OU=URMC,DC=urmc-sh,DC=rochester,DC=edu" "(&(objectCategory=Computer)(operatingSystem=Mac*))" cn 2> /dev/null | grep "cn:" | awk '{print "\"" toupper($2) "\","}'`
+echo $hosts | sed s'/.$//'
+echo ']}, "mac_domain_ns": { "hosts": [' 
+hosts=`ldapsearch -H ldap://$DC -b "OU=Neurobiology_Anatomy,OU=Research,OU=Departmental OUs,OU=URMC,DC=urmc-sh,DC=rochester,DC=edu" "(&(objectCategory=Computer)(operatingSystem=Mac*))" cn 2> /dev/null | grep "cn:" | awk '{print "\"" toupper($2) "\","}'`
+echo $hosts | sed s'/.$//'
+echo ']}}'
+elif [ "$1" == "--host" ]; then
+  echo '{"_meta": {"hostvars": {}}}'
+else
+  echo "{ }"
+fi

@@ -1,0 +1,14 @@
+/cache/
+/cmdb/
+/out/
+/packages/
+/PSTools/
+/hosts/host_vars/
+/hosts/group_vars/
+/hosts/1exceptions
+/hosts/bsd
+/facts/
+/scripts/create_isdadmin.sh
+/scripts/install_cylance.bat
+/vars/
+/venv/
